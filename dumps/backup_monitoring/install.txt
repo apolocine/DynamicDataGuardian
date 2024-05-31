@@ -63,6 +63,5 @@
       $EDITOR=nano crontab -e
       0 19 * * * /path/to/backup_and_upload_test.sh >> /path/to/backup_and_upload.log 2>&1
     
-
 3 syncronisations de repertoires 
  
