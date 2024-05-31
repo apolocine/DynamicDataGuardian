@@ -78,8 +78,21 @@
          ## repertoire distant user@remoteHost:/path/to/remote/directory
          ## stdout des erreurs >> /path/to/log/rsync.log 2>&1
   
-      * * * * * echo "$(date) - Starting rsync" >> /path/to/log/rsync.log &&  sshpass -p 'remote_user_password' rsync -avz -e ssh /path/to/remote/directory     
-       hmd@remoteHost:/path/to/remote/directory >> /path/to/log/rsync.log 2>&1
+          * * * * * echo "$(date) - Starting rsync" >> /path/to/log/rsync.log &&  sshpass -p 'remote_user_password' rsync -avz -e ssh /path/to/remote/directory     
+           hmd@remoteHost:/path/to/remote/directory >> /path/to/log/rsync.log 2>&1
+    
+            ### Points Importants
+           1. **Sécurité** : Il est important de noter que stocker des mots de passe en clair dans des scripts ou des fichiers cron est une mauvaise pratique en termes 
+              de sécurité. Il est recommandé d'utiliser des clés SSH sans mot de passe pour les connexions automatisées.
+           2. **Permissions** : Assurez-vous que le fichier de log a les bonnes permissions pour permettre l'écriture par le script cron. Par exemple :
+                 sudo touch /home/hmd/public_html/medical_office/hmd_mesra/sites/mesra.amia.fr/files_test/rsync.log
+                 sudo chown hmd:hmd /home/hmd/public_html/medical_office/hmd_mesra/sites/mesra.amia.fr/files_test/rsync.log
+           En utilisant des variables, vous rendez le script plus lisible et facile à maintenir. De plus, cela vous permet de modifier les chemins ou les paramètres 
+            en un seul endroit si nécessaire.
+
+
+
+
     3.3 Syncronistaion bidirectionelle 
        3.3.1 Uniquement avec rsync 
          Dans ce cas il faut juste interchenger le repertoire source et destination de la commande 3.2
