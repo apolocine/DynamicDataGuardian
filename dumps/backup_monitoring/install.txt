@@ -1,27 +1,27 @@
 1) On remote server:
-CREATE DATABASE project_backup_monitoring;
+ 1.1 MySQL
+      CREATE DATABASE project_backup_monitoring;
+      USE project_backup_monitoring;
+      CREATE TABLE `backup_status` (
+        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `project_name` varchar(255) NOT NULL,
+        `backup_time` datetime NOT NULL,
+        `step` varchar(255) NOT NULL,
+        `status` enum('not_started','in_progress','completed','error') NOT NULL,
+        `message` text,
+        `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        `exec_time` datetime DEFAULT NULL,
+        `backup_file` varchar(255) DEFAULT NULL,
+        PRIMARY KEY (`id`)
+      ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-USE project_backup_monitoring;
-
-CREATE TABLE `backup_status` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `project_name` varchar(255) NOT NULL,
-  `backup_time` datetime NOT NULL,
-  `step` varchar(255) NOT NULL,
-  `status` enum('not_started','in_progress','completed','error') NOT NULL,
-  `message` text,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `exec_time` datetime DEFAULT NULL,
-  `backup_file` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-2) copie ihm directry to the server directory site
- index.php
- config.php
- delete_record.php
- jquery-3.6.0.min.js
- retry_action.php
+1.2 Create Web Site 
+    copie ihm directry to the server directory site
+      index.php
+      config.php
+      delete_record.php
+      jquery-3.6.0.min.js
+      retry_action.php
  
 3) Create path for data and scriptes on local ans remote server:
 sudo mkdir /path/to/dumps"
