@@ -10,16 +10,19 @@
 # * * * * * echo "$(date) - Starting rsync" >> /path/to/log/rsync.log &&  sshpass -p 'remote_user_password' rsync -avz -e ssh /path/to/remote/directory  hmd@remoteHost:/path/to/remote/directory >> /path/to/log/rsync.log 2>&1
 
 
-# Définir les variables
-LOG_FILE="/home/hmd/public_html/medical_office/hmd_mesra/sites/mesra.amia.fr/files_test/rsync.log"
-SOURCE_DIR="/home/hmd/public_html/medical_office/hmd_mesra/sites/mesra.amia.fr/files_test"
-DEST_USER="hmd"
-DEST_HOST="amia.fr"
-DEST_DIR="/home/hmd/private_html/medical_office/hmd_mesra/sites/mesra.amia.fr/files_test"
-PASSWORD="hmd"
+## Définir les variables
+LOG_FILE="/patho/to/remote/log/rsync.log"
+SOURCE_DIR="/home/hmd/public_html/amia/sites/default/files"
+DEST_USER="remote_user"
+DEST_HOST="remotehost"
+DEST_DIR="/path/to/remote/files"
+PASSWORD="remote_user_password"
 
-# Ajouter la date et l'heure dans le fichier de log
-echo "$(date) - Starting rsync" >> $LOG_FILE
+## Ajouter la date et l'heure dans le fichier de log
+##echo "$(date) - Starting rsync" >> $LOG_FILE
 
-# Exécuter la commande rsync avec sshpass pour le mot de passe
-sshpass -p $PASSWORD rsync -avz -e ssh $SOURCE_DIR $DEST_USER@$DEST_HOST:$DEST_DIR >> $LOG_FILE 2>&1
+## Exécuter la commande rsync avec sshpass pour le mot de passe
+echo "$(date) - Starting rsync" >> $LOG_FILE && sshpass -p $PASSWORD rsync -avz -e ssh $SOURCE_DIR $DEST_USER@$DEST_HOST:$DEST_DIR >> $LOG_FILE 2>&1 && echo "$(date) - End rsync ----->" >> $LOG_FILE
+
+
+
