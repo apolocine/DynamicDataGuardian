@@ -105,7 +105,8 @@
 4 syncronisations des données 
       4.1 Synchroniser les données (incrémentielle)
           Pour une synchronisation incrémentielle plus sophistiquée (où seules les modifications sont appliquées), vous pouvez utiliser pt-table-sync de Percona Toolkit.
-Ce script peut gérer les différences entre les tables et synchroniser les enregistrements.
+          Ce script peut gérer les différences entre les tables et synchroniser les enregistrements.
+
 
 Conclusion
 Unison est un excellent outil pour la synchronisation de fichiers et de répertoires entre différents serveurs, offrant une synchronisation bidirectionnelle et la 
