@@ -215,15 +215,15 @@
             ### Points Importants
             
             1. **Sécurité** : Stocker des mots de passe en clair dans des scripts est une mauvaise pratique de sécurité. Utilisez des fichiers de configuration MySQL 
-sécurisés ou des variables d'environnement pour gérer les mots de passe.
+               sécurisés ou des variables d'environnement pour gérer les mots de passe.
             2. **Conflits** : La synchronisation bidirectionnelle peut entraîner des conflits de données. Assurez-vous d'avoir des mécanismes pour gérer les conflits, 
-comme l'horodatage des modifications.
+               comme l'horodatage des modifications.
             3. **Tests** : Testez toujours vos scripts dans un environnement de développement avant de les exécuter en production.
             
             ### Utilisation de Fichiers de Configuration Sécurisés
             
             Pour éviter de stocker les mots de passe en clair dans le script, vous pouvez utiliser un fichier de configuration MySQL (`~/.my.cnf`) avec les informations 
-d'authentification :
+             d'authentification :
             
             ```ini
             [client]
@@ -261,6 +261,7 @@ d'authentification :
 
 
 
-Conclusion
-Unison est un excellent outil pour la synchronisation de fichiers et de répertoires entre différents serveurs, offrant une synchronisation bidirectionnelle et la 
-possibilité de personnaliser les exclusions. En l'automatisant avec cron, vous pouvez maintenir vos répertoires synchronisés à intervalles réguliers de manière fiable.
+ 5 Conclusion
+               Unison est un excellent outil pour la synchronisation de fichiers et de répertoires entre différents serveurs, offrant une synchronisation bidirectionnelle 
+               et la possibilité de personnaliser les exclusions. En l'automatisant avec cron, vous pouvez maintenir vos répertoires synchronisés à intervalles réguliers 
+               de manière fiable.
