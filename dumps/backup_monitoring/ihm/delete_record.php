@@ -1,3 +1,7 @@
+//DynamicDataGuardian - Instructions de Configuration
+//Réalisé par Dr Hamid MADANI
+//Le 31/05/2024
+
 <?php
 
 include_once 'config.php'; // Inclure le fichier config.php
