@@ -1,5 +1,7 @@
 #!/bin/bash
-
+#//DynamicDataGuardian - Instructions de Configuration
+#//Réalisé par Dr Hamid MADANI
+#//Le 31/05/2024
 # Configuration
 DB_NAME="db_local_project_prod"
 #DB_NAME="db_local_project_test"
