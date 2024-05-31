@@ -1,4 +1,4 @@
-sudo apt-get install percona-toolkit
+## sudo apt-get install percona-toolkit
 
 #!/bin/bash
 
