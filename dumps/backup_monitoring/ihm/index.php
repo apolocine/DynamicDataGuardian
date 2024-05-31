@@ -1,3 +1,6 @@
+//DynamicDataGuardian - Instructions de Configuration
+//Réalisé par Dr Hamid MADANI
+//Le 31/05/2024
 
 <?php
 error_reporting(E_ALL);
