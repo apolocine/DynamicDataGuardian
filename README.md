@@ -11,5 +11,7 @@ DynamicDataGuardian est un script automatisé de sauvegarde et de synchronisatio
 <h4>Script Principal</h4>
 <p>Le script principal restera comme mentionné précédemment, mais avec le nom de projet intégré dans les messages de log et la documentation.</p>
 <h4>Documentation</h4>
-<p>Assurez-vous d'inclure une documentation claire sur l'installation, la configuration et l'utilisation de DynamicDataGuardian.</p>
+<p>
+   La documentation sur l'installation, la configuration et l'utilisation de DynamicDataGuardian.
+</p>
 <h3>Exemple de Script avec Branding</h3
