@@ -153,7 +153,10 @@
 
 
 
-            Pour réaliser une synchronisation bidirectionnelle entre deux bases de données MySQL sur des serveurs différents, vous pouvez utiliser `pt-table-sync` de Percona Toolkit. Cependant, `pt-table-sync` n'est généralement pas conçu pour une synchronisation bidirectionnelle directe. Vous devrez probablement synchroniser d'abord dans une direction, puis dans l'autre.
+                   Pour réaliser une synchronisation bidirectionnelle entre deux bases de données MySQL sur des serveurs différents, vous pouvez utiliser `pt-table-sync` 
+                 de Percona Toolkit. Cependant, `pt-table-sync` n'est généralement pas conçu pour une synchronisation bidirectionnelle directe. Vous devrez probablement 
+                 synchroniser d'abord dans une direction, puis dans l'autre.
+ 
             
             ### Prérequis
             
