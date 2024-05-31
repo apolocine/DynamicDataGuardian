@@ -166,8 +166,9 @@
                  ```sh
                  sudo yum install percona-toolkit
                  ```
-            
-            2. **Configurer les accès MySQL** : Assurez-vous que l'utilisateur MySQL que vous utilisez a les permissions nécessaires pour lire et écrire dans les deux bases de données.
+
+            2. **Configurer les accès MySQL** : Assurez-vous que l'utilisateur MySQL que vous utilisez a les permissions nécessaires pour lire et écrire dans les deux 
+               bases de données.
             
             3. **Assurer une connexion sécurisée** : Utilisez SSH pour se connecter aux serveurs distants de manière sécurisée.
             
@@ -210,13 +211,16 @@
             
             ### Points Importants
             
-            1. **Sécurité** : Stocker des mots de passe en clair dans des scripts est une mauvaise pratique de sécurité. Utilisez des fichiers de configuration MySQL sécurisés ou des variables d'environnement pour gérer les mots de passe.
-            2. **Conflits** : La synchronisation bidirectionnelle peut entraîner des conflits de données. Assurez-vous d'avoir des mécanismes pour gérer les conflits, comme l'horodatage des modifications.
+            1. **Sécurité** : Stocker des mots de passe en clair dans des scripts est une mauvaise pratique de sécurité. Utilisez des fichiers de configuration MySQL 
+sécurisés ou des variables d'environnement pour gérer les mots de passe.
+            2. **Conflits** : La synchronisation bidirectionnelle peut entraîner des conflits de données. Assurez-vous d'avoir des mécanismes pour gérer les conflits, 
+comme l'horodatage des modifications.
             3. **Tests** : Testez toujours vos scripts dans un environnement de développement avant de les exécuter en production.
             
             ### Utilisation de Fichiers de Configuration Sécurisés
             
-            Pour éviter de stocker les mots de passe en clair dans le script, vous pouvez utiliser un fichier de configuration MySQL (`~/.my.cnf`) avec les informations d'authentification :
+            Pour éviter de stocker les mots de passe en clair dans le script, vous pouvez utiliser un fichier de configuration MySQL (`~/.my.cnf`) avec les informations 
+d'authentification :
             
             ```ini
             [client]
