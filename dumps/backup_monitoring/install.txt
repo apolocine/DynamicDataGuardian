@@ -22,11 +22,18 @@
       delete_record.php
       jquery-3.6.0.min.js
       retry_action.php
- 
-3) Create path for data and scriptes on local ans remote server:
-sudo mkdir /path/to/dumps"
-sudo mkdir /path/to/sh_scripts"
-copy backup_and_upload.sh to /path/to/sh_scripts/backup_and_upload.sh
+ 1.3 Create Data Directory
+      sudo mkdir /path/to/dumps"
+
+2) On Local Server
+ 1.2 Make data and shel Script directory,
+      sudo mkdir /path/to/dumps
+      sudo chmod 777 /path/to/dumps
+
+      sudo mkdir /path/to/sh_scripts
+      sudo chmod 777 /path/to/sh_scripts
+
+ 1.3  copy backup_and_upload.sh to /path/to/sh_scripts/backup_and_upload.sh
 
 4) on local server 
   pour automatiser l'execution du scripte sh ajouter au cron la ligne suivante  
