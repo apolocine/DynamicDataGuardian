@@ -39,39 +39,66 @@
       sudo mkdir /path/to/dumps"
 
 2 On Local Server
- 2.1 Make data and shel Script directory,
-      sudo mkdir /path/to/dumps
-      sudo chmod 777 /path/to/dumps
-
-      sudo mkdir /path/to/sh_scripts
-      sudo chmod 777 /path/to/sh_scripts
-
- 2.3  prepare backup_and_upload.sh
-      2.3.1 install sshpass: 
-             Debian/Ubuntu :
-               sudo apt-get install sshpass
-            RedHat/CentOS :
-               sudo yum install sshpass
-      2.3.2 copy backup_and_upload.sh to /path/to/sh_scripts/backup_and_upload.sh
-           if UTF-8 problème execute 
-           dos2unix ./backup_and_upload.sh
-      2.3.3 execution du script
-          sudo ./backup_and_upload.sh
-2.4  Automatiser l'execution du scripte sh
-     Une execution aotomatique et régulières tout les jours à 19 heurs
-     Ajouter au cron la ligne suivante  with promt     
-      $EDITOR=nano crontab -e
-      0 19 * * * /path/to/backup_and_upload_test.sh >> /path/to/backup_and_upload.log 2>&1
-    
+    2.1 Make data and shel Script directory,
+         sudo mkdir /path/to/dumps
+         sudo chmod 777 /path/to/dumps
+   
+         sudo mkdir /path/to/sh_scripts
+         sudo chmod 777 /path/to/sh_scripts
+   
+    2.3  prepare backup_and_upload.sh
+         2.3.1 install sshpass: 
+                Debian/Ubuntu :
+                  sudo apt-get install sshpass
+               RedHat/CentOS :
+                  sudo yum install sshpass
+         2.3.2 copy backup_and_upload.sh to /path/to/sh_scripts/backup_and_upload.sh
+              if UTF-8 problème execute 
+              dos2unix ./backup_and_upload.sh
+         2.3.3 execution du script
+             sudo ./backup_and_upload.sh
+    2.4  Automatiser l'execution du scripte sh
+         Une execution aotomatique et régulières tout les jours à 19 heurs
+         Ajouter au cron la ligne suivante  with promt     
+          $EDITOR=nano crontab -e
+          0 19 * * * /path/to/backup_and_upload_test.sh >> /path/to/backup_and_upload.log 2>&1
+       
 3 syncronisations de repertoires 
-     execution du scripte suivant sur la ligne de commande sinon le placer dans le cron
-     ## toutes les minutes * * * * * 
-     ## marquer la date dans le log echo "$(date) - Starting rsync" >> /path/to/log/rsync.log
-     ## && deux commandes successif 
-     ## connexion avec password en ssh sshpass -p 'remote_user_password' rsync -avz -e ssh
-     ## repertoire local /path/to/remote/directory  
-     ## repertoire distant user@remoteHost:/path/to/remote/directory
-     ## stdout des erreurs >> /path/to/log/rsync.log 2>&1
+    3.1 Install des outils 
+         Debian/Ubuntu :
+                  sudo apt-get install rsync
 
-    * * * * * echo "$(date) - Starting rsync" >> /path/to/log/rsync.log &&  sshpass -p 'remote_user_password' rsync -avz -e ssh /path/to/remote/directory     
-     hmd@remoteHost:/path/to/remote/directory >> /path/to/log/rsync.log 2>&1
+    3.2 Synchronistation Unidirectionelle
+         execution du scripte suivant sur la ligne de commande sinon le placer dans le cron
+         ## toutes les minutes * * * * * 
+         ## marquer la date dans le log echo "$(date) - Starting rsync" >> /path/to/log/rsync.log
+         ## && deux commandes successif 
+         ## connexion avec password en ssh sshpass -p 'remote_user_password' rsync -avz -e ssh
+         ## repertoire local /path/to/remote/directory  
+         ## repertoire distant user@remoteHost:/path/to/remote/directory
+         ## stdout des erreurs >> /path/to/log/rsync.log 2>&1
+  
+      * * * * * echo "$(date) - Starting rsync" >> /path/to/log/rsync.log &&  sshpass -p 'remote_user_password' rsync -avz -e ssh /path/to/remote/directory     
+       hmd@remoteHost:/path/to/remote/directory >> /path/to/log/rsync.log 2>&1
+    3.3 Syncronistaion bidirectionelle 
+       3.3.1 Uniquement avec rsync 
+         Dans ce cas il faut juste interchenger le repertoire source et destination de la commande 3.2
+       3.3.2 Installation de Unison
+            a Install sur Debian/Ubuntu
+                sudo apt-get install unison
+            b Configuration de Unison
+                préparation du fichier de profil sync.prf
+                   # Synchronisation des répertoires de /home/hmd/public_html/medical_office/hmd_mesra/sites/mesra.amia.fr/files_test
+                   # sur les deux serveurs
+                   root = /home/hmd/public_html/medical_office/hmd_mesra/sites/mesra.amia.fr/files_test
+                   root = ssh://hmd@amia.fr//home/hmd/private_htmc/medical_office/hmd_mesra/sites/mesra.amia.fr/files_test
+                   
+                   # Ignorer certains fichiers ou répertoires (facultatif)
+                   ignore = Name .DS_Store
+                   ignore = Name Thumbs.db
+
+           c Exécution de Unison
+                  $ sudo unison sync.prf
+           b Automatisation avec Cron
+                  * * * * * unison sync.prf >> /var/log/unison.log 2>&1
+
