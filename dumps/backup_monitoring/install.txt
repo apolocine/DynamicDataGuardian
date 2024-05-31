@@ -153,6 +153,107 @@
 
 
 
+            Pour réaliser une synchronisation bidirectionnelle entre deux bases de données MySQL sur des serveurs différents, vous pouvez utiliser `pt-table-sync` de Percona Toolkit. Cependant, `pt-table-sync` n'est généralement pas conçu pour une synchronisation bidirectionnelle directe. Vous devrez probablement synchroniser d'abord dans une direction, puis dans l'autre.
+            
+            ### Prérequis
+            
+            1. **Installer Percona Toolkit** :
+               - **Debian/Ubuntu** :
+                 ```sh
+                 sudo apt-get install percona-toolkit
+                 ```
+               - **RedHat/CentOS** :
+                 ```sh
+                 sudo yum install percona-toolkit
+                 ```
+            
+            2. **Configurer les accès MySQL** : Assurez-vous que l'utilisateur MySQL que vous utilisez a les permissions nécessaires pour lire et écrire dans les deux bases de données.
+            
+            3. **Assurer une connexion sécurisée** : Utilisez SSH pour se connecter aux serveurs distants de manière sécurisée.
+            
+            ### Exemple de Script pour Synchronisation Bidirectionnelle
+            
+            Voici un exemple de script Bash pour synchroniser deux bases de données sur des serveurs différents :
+            
+            ```sh
+            #!/bin/bash
+            
+            # Définir les variables pour les bases de données
+            SOURCE_DB="db_dev01"
+            TARGET_DB="db_dev02"
+            USER="your_mysql_user"
+            PASSWORD="your_mysql_password"
+            SOURCE_HOST="source_host"
+            TARGET_HOST="target_host"
+            LOG_FILE="/var/log/db_sync.log"
+            
+            # Synchroniser de source à cible
+            echo "$(date) - Starting sync from $SOURCE_DB to $TARGET_DB" >> $LOG_FILE
+            pt-table-sync --execute --verbose h=$SOURCE_HOST,D=$SOURCE_DB,u=$USER,p=$PASSWORD h=$TARGET_HOST,D=$TARGET_DB,u=$USER,p=$PASSWORD >> $LOG_FILE 2>&1
+            echo "$(date) - Sync from $SOURCE_DB to $TARGET_DB completed" >> $LOG_FILE
+            
+            # Synchroniser de cible à source
+            echo "$(date) - Starting sync from $TARGET_DB to $SOURCE_DB" >> $LOG_FILE
+            pt-table-sync --execute --verbose h=$TARGET_HOST,D=$TARGET_DB,u=$USER,p=$PASSWORD h=$SOURCE_HOST,D=$SOURCE_DB,u=$USER,p=$PASSWORD >> $LOG_FILE 2>&1
+            echo "$(date) - Sync from $TARGET_DB to $SOURCE_DB completed" >> $LOG_FILE
+            
+            echo "$(date) - Bidirectional synchronization completed successfully." >> $LOG_FILE
+            ```
+            
+            ### Ajouter à Cron
+            
+            Pour exécuter ce script à intervalles réguliers, ajoutez une tâche cron. Par exemple, pour exécuter le script toutes les heures :
+            
+            ```sh
+            0 * * * * /path/to/your_script.sh
+            ```
+            
+            ### Points Importants
+            
+            1. **Sécurité** : Stocker des mots de passe en clair dans des scripts est une mauvaise pratique de sécurité. Utilisez des fichiers de configuration MySQL sécurisés ou des variables d'environnement pour gérer les mots de passe.
+            2. **Conflits** : La synchronisation bidirectionnelle peut entraîner des conflits de données. Assurez-vous d'avoir des mécanismes pour gérer les conflits, comme l'horodatage des modifications.
+            3. **Tests** : Testez toujours vos scripts dans un environnement de développement avant de les exécuter en production.
+            
+            ### Utilisation de Fichiers de Configuration Sécurisés
+            
+            Pour éviter de stocker les mots de passe en clair dans le script, vous pouvez utiliser un fichier de configuration MySQL (`~/.my.cnf`) avec les informations d'authentification :
+            
+            ```ini
+            [client]
+            user=your_mysql_user
+            password=your_mysql_password
+            host=localhost
+            ```
+            
+            Ensuite, modifiez le script pour utiliser les options de configuration sans spécifier le mot de passe :
+            
+            ```sh
+            #!/bin/bash
+            
+            # Définir les variables pour les bases de données
+            SOURCE_DB="db_dev01"
+            TARGET_DB="db_dev02"
+            SOURCE_HOST="source_host"
+            TARGET_HOST="target_host"
+            LOG_FILE="/var/log/db_sync.log"
+            
+            # Synchroniser de source à cible
+            echo "$(date) - Starting sync from $SOURCE_DB to $TARGET_DB" >> $LOG_FILE
+            pt-table-sync --execute --verbose h=$SOURCE_HOST,D=$SOURCE_DB h=$TARGET_HOST,D=$TARGET_DB >> $LOG_FILE 2>&1
+            echo "$(date) - Sync from $SOURCE_DB to $TARGET_DB completed" >> $LOG_FILE
+            
+            # Synchroniser de cible à source
+            echo "$(date) - Starting sync from $TARGET_DB to $SOURCE_DB" >> $LOG_FILE
+            pt-table-sync --execute --verbose h=$TARGET_HOST,D=$TARGET_DB h=$SOURCE_HOST,D=$SOURCE_DB >> $LOG_FILE 2>&1
+            echo "$(date) - Sync from $TARGET_DB to $SOURCE_DB completed" >> $LOG_FILE
+            
+            echo "$(date) - Bidirectional synchronization completed successfully." >> $LOG_FILE
+            ```
+            
+            Ce script est plus sécurisé et évite d'exposer les mots de passe en clair.
+
+
+
 Conclusion
 Unison est un excellent outil pour la synchronisation de fichiers et de répertoires entre différents serveurs, offrant une synchronisation bidirectionnelle et la 
 possibilité de personnaliser les exclusions. En l'automatisant avec cron, vous pouvez maintenir vos répertoires synchronisés à intervalles réguliers de manière fiable.
