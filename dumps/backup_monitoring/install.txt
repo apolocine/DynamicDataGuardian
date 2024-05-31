@@ -103,4 +103,5 @@
                   * * * * * unison sync.prf >> /var/log/unison.log 2>&1
 
 Conclusion
-Unison est un excellent outil pour la synchronisation de fichiers et de répertoires entre différents serveurs, offrant une synchronisation bidirectionnelle et la possibilité de personnaliser les exclusions. En l'automatisant avec cron, vous pouvez maintenir vos répertoires synchronisés à intervalles réguliers de manière fiable.
+Unison est un excellent outil pour la synchronisation de fichiers et de répertoires entre différents serveurs, offrant une synchronisation bidirectionnelle et la 
+possibilité de personnaliser les exclusions. En l'automatisant avec cron, vous pouvez maintenir vos répertoires synchronisés à intervalles réguliers de manière fiable.
