@@ -1,3 +1,5 @@
+## sudo apt-get install percona-toolkit
+## Bidirectional synchronization des données serveur local
 #!/bin/bash
 
 # Définir les variables pour les bases de données
