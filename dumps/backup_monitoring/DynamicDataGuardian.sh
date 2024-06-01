@@ -81,10 +81,10 @@ log_status "upload_database" "completed" "" "$BACKUP_FILE"
 ## Définir les variables
 LOG_FILE="/home/hmd/public_html/amia/sites/rsync.log"
 SOURCE_DIR="/home/hmd/public_html/amia/sites/default/files"
-DEST_USER="hmd"
-DEST_HOST="amia.fr"
+DEST_USER=$REMOTE_USER
+DEST_HOST=$REMOTE_HOST
 DEST_DIR="/home/hmd/private_html/medical_office/hmd_mesra/sites/mesra.amia.fr/"
-PASSWORD="hmd"
+PASSWORD=$REMOTE_PASS
 
 ## Ajouter la date et l'heure dans le fichier de log
 echo "$(date) - Starting rsync" >> $LOG_FILE
