@@ -92,6 +92,8 @@ log_status "upload_files" "started" "" ""
 ## Ajouter la date et l'heure dans le fichier de log
 echo "$(date) - Starting rsync" >> $LOG_FILE
 
+log_status "upload_files" "in_progress" "" ""
+
 ## Exécuter la commande rsync avec sshpass pour le mot de passe
 sshpass -p $PASSWORD rsync -avz -e ssh $SOURCE_DIR $DEST_USER@$DEST_HOST:$DEST_DIR >> $LOG_FILE 2>&1 && echo "$(date) - End rsync ----->" >> $LOG_FILE
 
