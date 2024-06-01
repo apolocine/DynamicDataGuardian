@@ -32,6 +32,8 @@ log_status() {
 log_status "extraction" "not_started" "" "$BACKUP_FILE"
 log_status "upload_server" "not_started" "" "$BACKUP_FILE"
 log_status "upload_database" "not_started" "" "$BACKUP_FILE"
+log_status "upload_files" "not_started" "" ""
+
 echo "extraction upload_server upload_database not_started"
 
 # Extraction de la base de données
@@ -86,11 +88,12 @@ DEST_HOST=$REMOTE_HOST
 DEST_DIR="/home/hmd/private_html/medical_office/hmd_mesra/sites/mesra.amia.fr/"
 PASSWORD=$REMOTE_PASS
 
+log_status "upload_files" "started" "" ""
 ## Ajouter la date et l'heure dans le fichier de log
 echo "$(date) - Starting rsync" >> $LOG_FILE
 
 ## Exécuter la commande rsync avec sshpass pour le mot de passe
 sshpass -p $PASSWORD rsync -avz -e ssh $SOURCE_DIR $DEST_USER@$DEST_HOST:$DEST_DIR >> $LOG_FILE 2>&1 && echo "$(date) - End rsync ----->" >> $LOG_FILE
 
-
+log_status "upload_files" "completed" "" ""
 
