@@ -1,5 +1,5 @@
 ## sudo apt-get install percona-toolkit
-## >synchronisation incrémentielle des données
+## >synchronisation incrémentielle des données serveur local
 #!/bin/bash
 
 # Définir les variables pour les bases de données
