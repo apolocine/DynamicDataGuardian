@@ -16,7 +16,7 @@ REMOTE_MYSQL_PASS="gjetfm26"
 REMOTE_MYSQL_DB="project_backup_monitoring"
 REMOTE_MYSQL_PROJECT_DB_NAME="cm_drupal_amia_hmd_prod"
 #REMOTE_MYSQL_PROJECT_DB_NAME="project_backup_test"
-PROJECT_NAME="amia_prod"
+PROJECT_NAME="DynamicDataGuardian"
 
 # Enregistrer le statut sur le serveur distant
 log_status() {
@@ -30,11 +30,13 @@ log_status() {
 
 # Initialiser le statut
 log_status "extraction" "not_started" "" "$BACKUP_FILE"
+log_status "Dumped file modification" "not_started" "" "$BACKUP_FILE"
 log_status "upload_server" "not_started" "" "$BACKUP_FILE"
 log_status "upload_database" "not_started" "" "$BACKUP_FILE"
 log_status "upload_files" "not_started" "" ""
 
 echo "extraction upload_server upload_database not_started"
+
 
 # Extraction de la base de données
 log_status "extraction" "in_progress" "" "$BACKUP_FILE"
@@ -44,6 +46,17 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 log_status "extraction" "completed" "" "$BACKUP_FILE"
+
+
+log_status "Dumped file modification" "in_progress" "" "$BACKUP_FILE"
+# Modifier les valeurs dans le fichier de sauvegarde
+sed -i 's|/sites/default/files|/sites/mesra.amia.fr/files|g' "$BACKUP_FILE"
+sed -i 's|sys/files|sys/mesra/files|g' "$BACKUP_FILE"
+sed -i 's|/home/hmd/public_html/tmp|/home/hmd/private_html/tmp|g' "$BACKUP_FILE"
+
+log_status "Dumped file modification" "completed" "" "$BACKUP_FILE"
+
+
 
 # Transférer la sauvegarde vers le serveur distant avec compression
 log_status "upload_server" "in_progress" "" "$BACKUP_FILE"
