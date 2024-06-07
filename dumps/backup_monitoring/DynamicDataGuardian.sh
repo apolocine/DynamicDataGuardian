@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Inclure le fichier de configuration
-source  config.sh
-
 # Réalisé par Dr Hamid MADANI
 # Le 31/05/2024
 
+
+# Inclure le fichier de configuration
+source  DynamicDataConfig.sh
 
 # Enregistrer le statut sur le serveur distant
 log_status() {
