@@ -18,6 +18,15 @@ REMOTE_MYSQL_PROJECT_DB_NAME="cm_drupal_amia_hmd_prod"
 #REMOTE_MYSQL_PROJECT_DB_NAME="project_backup_test"
 PROJECT_NAME="DynamicDataGuardian"
 
+
+
+# Inclure le fichier de configuration
+source  config.sh
+
+# Réalisé par Dr Hamid MADANI
+# Le 31/05/2024
+
+
 # Enregistrer le statut sur le serveur distant
 log_status() {
     STEP=$1
